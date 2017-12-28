@@ -6,11 +6,11 @@ Loppback Vuejs Generator is a generator to scaffold app with Create-Retrieve-Upd
 
 ## Installation
 
-    yarn global add @api-platform/client-generator
+    npm install -g loopback-vuejs-generator
 
 ## Usage
 
-    generate-api-platform-client https://demo.api-platform.com/ output/ --resource Book
+    generate-loopback-vuejs-client http://localhost:3000/explorer/swagger.json output/ --resource <resource-name>
 
 ## Features
 
