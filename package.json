@@ -1,7 +1,7 @@
 {
-  "name": "@api-platform/client-generator",
-  "version": "0.1.15",
-  "description": "Generate a CRUD application built with React, Redux and React Router from an Hydra-enabled API",
+  "name": "loopback-vuejs-generator",
+  "version": "0.1.0",
+  "description": "Generate a CRUD application built with Vue.js from a swagger loopback API",
   "files": [
     "*.md",
     "docs/*.md",
@@ -10,11 +10,11 @@
     "templates"
   ],
   "main": "lib/index",
-  "repository": "api-platform/client-generator",
-  "homepage": "https://github.com/api-platform/client-generator",
-  "bugs": "https://github.com/api-platform/client-generator/issues",
-  "author": "Kévin Dunglas",
-  "license": "MIT",
+  "repository": "skrafft/loopback-vuejs-generator",
+  "homepage": "https://github.com/skrafft/loopback-vuejs-generator",
+  "bugs": "https://github.com/skrafft/loopback-vuejs-generator/issues",
+  "author": "Sébastien Krafft",
+  "license": "Apache-2.0",
   "devDependencies": {
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
@@ -30,7 +30,6 @@
     "tmp": "^0.0.31"
   },
   "dependencies": {
-    "@api-platform/api-doc-parser": "^0.2",
     "babel-runtime": "^6.23.0",
     "chalk": "^2.1.0",
     "commander": "^2.9.0",
@@ -45,13 +44,8 @@
     "lint": "eslint src",
     "build": "babel src -d lib --ignore '*.test.js'",
     "watch": "babel --watch src -d lib --ignore '*.test.js'",
-    "test-gen": "rm -rf ./tmp && npm run build && ./lib/index.js  https://demo.api-platform.com ./tmp/react && ./lib/index.js https://demo.api-platform.com ./tmp/react-native -g react-native && ./lib/index.js https://demo.api-platform.com ./tmp/vue -g vue && ./lib/index.js https://demo.api-platform.com ./tmp/admin-on-rest -g admin-on-rest",
-    "test-gen-env": "rm -rf ./tmp && npm run build && API_PLATFORM_CLIENT_GENERATOR_ENTRYPOINT=https://demo.api-platform.com API_PLATFORM_CLIENT_GENERATOR_OUTPUT=./tmp ./lib/index.js"
   },
   "bin": {
-    "generate-api-platform-client": "./lib/index.js"
-  },
-  "publishConfig": {
-    "access": "public"
+    "generate-loopback-vuejs-client": "./lib/index.js"
   }
 }
