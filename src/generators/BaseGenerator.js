@@ -4,6 +4,8 @@ import mkdirp from 'mkdirp';
 import { sprintf } from 'sprintf-js';
 import urlapi from 'url';
 
+var helpers = require('handlebars-helpers')();
+
 export default class {
   templates = {};
 

@@ -1,18 +1,18 @@
 <template>
-  <div>
+  <v-container>
     <h1>Edit \{{ item && item['id'] }}</h1>
 
-    <div v-if="created" class="alert alert-success" role="status">\{{ created['id'] }} created.</div>
-    <div v-if="updated" class="alert alert-success" role="status">\{{ updated['id'] }} updated.</div>
-    <div v-if="retrieveLoading || updateLoading || deleteLoading"class="alert alert-info" role="status">Loading...</div>
-    <div v-if="retrieveError" class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> \{{ retrieveError }}</div>
-    <div v-if="updateError" class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> \{{ updateError }}</div>
-    <div v-if="deleteError" class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> \{{ deleteError }}</div>
+    <v-alert v-if="retrieveLoading || updateLoading || deleteLoading" color="info" icon="info" value="true" role="status">Loading...</v-alert>
+    <v-alert v-if="created" color="success" icon="check_circle" value="true" role="status">\{{ created['id'] }} created.</v-alert>
+    <v-alert v-if="updated" color="success" icon="check_circle" value="true" role="status">\{{ updated['id'] }} updated.</v-alert>
+    <v-alert v-if="retrieveError" color="error" icon="warning" value="true" role="alert">\{{ retrieveError }}</v-alert>
+    <v-alert v-if="updateError" color="error" icon="warning" value="true" role="alert">\{{ updateError }}</v-alert>
+    <v-alert v-if="deleteError" color="error" icon="warning" value="true" role="alert">\{{ deleteError }}</v-alert>
 
     <{{{titleUcFirst}}}Form v-if="item" :handle-submit="update" :values="item" :errors="violations" :initialValues="retrieved"></{{{titleUcFirst}}}Form>
-    <router-link v-if="item" :to="{ name: '{{{titleUcFirst}}}List' }" class="btn btn-default">Back to list</router-link>
-    <button @click="del" class="btn btn-danger">Delete</button>
-  </div>
+    <v-btn v-if="item" :to="{ name: '{{{titleUcFirst}}}List' }">Back to list</v-btn>
+    <v-btn @click="del" color="error">Delete</v-btn>
+  </v-container>
 </template>
 
 <script>

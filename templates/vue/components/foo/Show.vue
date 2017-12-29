@@ -1,33 +1,35 @@
 <template>
-  <div>
+  <v-container>
     <h1>Show \{{ item && item['id'] }}</h1>
 
-    <div v-if="loading" class="alert alert-info" role="status">Loading...</div>
-    <div v-if="error" class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> \{{ error }}</div>
-    <div v-if="deleteError" class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> \{{ deleteError }}</div>
+    <v-alert v-if="loading" color="info" icon="info" value="true" role="status">Loading...</v-alert>
+    <v-alert v-if="deletedItem" color="success" icon="check_circle" value="true" role="status">\{{ deletedItem['id'] }} deleted.</v-alert>
+    <v-alert v-if="error" color="error" icon="warning" value="true" role="alert">\{{ error }}</v-alert>
 
-    <div v-if="item" class="table-responsive">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>Field</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-      {{#each fields}}
+    <v-data-table
+        v-bind:items="[item]"
+        hide-actions
+        class="elevation-1"
+      >
+      <template slot="headers" slot-scope="props">
+        <tr>
+          <th>Field</th>
+          <th>Value</th>
+        </tr>
+      </template>
+      <template slot="items" slot-scope="props">
+        {{#each fields}}
           <tr>
             <td>{{name}}</td>
-            <td>\{{ item['{{{ name }}}'] }}</td>
+            <td>\{{ props.item['{{{ name }}}'] }}</td>
           </tr>
-      {{/each }}
-        </tbody>
-      </table>
-    </div>
+        {{/each }}
+      </template>
+    </v-data-table>
 
-    <router-link v-if="item" :to="{ name: '{{{titleUcFirst}}}List' }" class="btn btn-default">Back to list</router-link>
-    <button @click="deleteItem(item)" class="btn btn-danger">Delete</button>
-  </div>
+    <v-btn v-if="item" :to="{ name: '{{{titleUcFirst}}}List' }">Back to list</v-btn>
+    <v-btn @click="deleteItem(item)" color="error">Delete</v-btn>
+  </v-container>
 </template>
 
 <script>

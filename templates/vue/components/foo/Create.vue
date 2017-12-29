@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <v-container>
     <h1>New {{{ title }}}</h1>
 
-    <div v-if="loading" class="alert alert-info" role="status">Loading...</div>
-    <div v-if="error" class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> \{{ error }}</div>
+    <v-alert v-if="loading" color="info" icon="info" value="true" role="status">Loading...</v-alert>
+    <v-alert v-if="error" color="error" icon="warning" value="true" role="alert">\{{ error }}</v-alert>
 
     <{{{titleUcFirst}}}Form :handle-submit="create" :values="item" :errors="violations"></{{{titleUcFirst}}}Form>
     <router-link :to="{ name: '{{{titleUcFirst}}}List' }" class="btn btn-default">Back to list</router-link>
-  </div>
+  </v-container>
 </template>
 
 <script>

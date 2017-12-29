@@ -1,15 +1,51 @@
 <template>
-  <form @submit.prevent="handleSubmit(item)">
+  <v-form @submit.prevent="handleSubmit(item)" ref="form" lazy-validation>
 {{#each formFields}}
-    <div :class="{ 'form-group': true, 'has-error': (errors && errors.{{{ name }}}) }">
-      <label for="{{{ lc }}}_{{{ name }}}" class="control-label">{{{ name }}}</label>
-      <input v-model="item.{{{ name }}}" type="{{{ type }}}" {{#if step}} step="{{{ step }}}"{{/if}} placeholder="{{{ description }}}" {{#if required}}required="true"{{/if}} id="{{{ lc }}}_{{{ name }}}" class="form-control" />
-      <span v-if="errors && errors.{{{ name }}}" class="help-block" id="{{{ lc }}}_{{{ name }}}_helpBlock">\{{ errors.{{{ name }}} }}</span>
-    </div>
+  {{#eq type "checkbox"}}
+    <v-checkbox
+      label="{{{ description }}}"
+      v-model="item.{{{ name }}}"
+      {{#if required}}required{{/if}}
+    ></v-checkbox>
+  {{/eq}}
+  {{#eq type "text"}}
+    <v-text-field
+      label="{{{ description }}}"
+      v-model="item.{{{ name }}}"
+      {{#if required}}required{{/if}}
+      type="{{{ type }}}"
+    ></v-text-field>
+  {{/eq}}
+  {{#eq type "number"}}
+    <v-text-field
+      label="{{{ description }}}"
+      v-model="item.{{{ name }}}"
+      {{#if required}}required{{/if}}
+      type="{{{ type }}}"
+    ></v-text-field>
+  {{/eq}}
+  {{#eq type "dateTime"}}
+    <v-dialog persistent v-model="modal" lazy full-width width="290px">
+      <v-text-field slot="activator"
+        label="{{{ description }}}"
+        v-model="item.{{{ name }}}"
+        prepend-icon="event"
+        readonly
+        ></v-text-field>
+      <v-date-picker v-model="item.{{{ name }}}" scrollable actions>
+        <template slot-scope="{ save, cancel }">
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+            <v-btn flat color="primary" @click="save">OK</v-btn>
+          </v-card-actions>
+        </template>
+      </v-date-picker>
+    </v-dialog>
+  {{/eq}}
 {{/each}}
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+    <v-btn type="submit" color="primary">Submit</v-btn>
+  </v-form>
 </template>
 
 <script>
