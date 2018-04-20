@@ -7,6 +7,7 @@
     <v-alert v-if="error" color="error" icon="warning" value="true" role="alert">\{{ error }}</v-alert>
 
     <v-data-table
+        v-if="item"
         v-bind:items="[item]"
         hide-actions
         class="elevation-1"
@@ -37,6 +38,7 @@
 
   export default {
     computed: mapGetters({
+      deletedItem: '{{{lc}}}/del/deleted',
       deleteError: '{{{lc}}}/del/error',
       error: '{{{lc}}}/show/error',
       loading: '{{{lc}}}/show/loading',

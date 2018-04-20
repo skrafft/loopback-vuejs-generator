@@ -96,7 +96,7 @@
     }),
     methods: {
       ...mapActions({
-        getPage: 'currency_rate/list/getItems',
+        getPage: '{{{lc}}}/list/getItems',
       }),
       changeSort (column) {
               if (this.pagination.sortBy === column) {
