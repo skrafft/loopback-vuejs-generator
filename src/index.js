@@ -10,6 +10,7 @@ program
   .version(version)
   .description('Generate a CRUD application built with Vue from a loopback API')
   .usage('entrypoint outputDirectory')
+  .option('-n, --no-common', 'Do not output common files (fetch, error, config)')
   .option('-r, --resource [resourceName]', 'Generate CRUD for the given resource')
   .option('-g, --generator [generator]', 'The generator to use, one of "react", "react-native", "vue", "admin-on-rest"', 'vue')
   .option('-t, --template-directory [templateDirectory]', 'The templates directory base to use. Final directory will be ${templateDirectory}/${generator}', `${__dirname}/../templates/`)
@@ -29,11 +30,11 @@ const resourceToGenerate = program.resource ? program.resource.toLowerCase() : n
 
 fetchSwagger(entrypoint).then(ret => {
   Object.keys(ret.body.definitions).forEach(function (key) {
-    let resource = ret.body.definitions['$new_' + key];
+    let resource = ret.body.definitions['$new_' + key] || ret.body.definitions[key];
     const nameLc = key.toLowerCase();
 
     if (null === resourceToGenerate || nameLc === resourceToGenerate) {
-      generator.generate(entrypoint.replace('/explorer/swagger.json', ret.body.basePath + '/' + key + 's'), key, resource, outputDirectory);
+      generator.generate(entrypoint.replace('/explorer/swagger.json', ret.body.basePath + '/' + key + 's'), key, resource, outputDirectory, program.common);
       generator.help(key, resource)
     }
   });

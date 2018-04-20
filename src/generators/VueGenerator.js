@@ -62,7 +62,7 @@ export const store = new Vuex.Store({
 `));
   }
 
-  generate(entrypoint, name, resource, dir) {
+  generate(entrypoint, name, resource, dir, common) {
     const lc = name.toLowerCase();
     const titleUcFirst = name.charAt(0).toUpperCase() + name.slice(1);
 
@@ -110,10 +110,12 @@ export const store = new Vuex.Store({
       this.createFileFromPattern(pattern, dir, lc, context);
     }
 
-    // error
-    this.createFile('error/SubmissionError.js', `${dir}/error/SubmissionError.js`, context, false);
+    if (common) {
+      // error
+      this.createFile('error/SubmissionError.js', `${dir}/error/SubmissionError.js`, context, false);
 
-    this.createEntrypoint(entrypoint.replace('/'+lc+'s', ''), `${dir}/config/_entrypoint.js`);
-    this.createFile('utils/fetch.js', `${dir}/utils/fetch.js`, {}, false);
+      this.createEntrypoint(entrypoint.replace('/'+lc+'s', ''), `${dir}/config/_entrypoint.js`);
+      this.createFile('utils/fetch.js', `${dir}/utils/fetch.js`, {}, false);
+    }
   }
 }
